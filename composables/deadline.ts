@@ -20,6 +20,7 @@ export function useCreateDeadlineMutation(groupId: string) {
     }),
     onSuccess() {
       queryClient.invalidateQueries(['deadline', 'list', groupId])
+      queryClient.invalidateQueries(['event', 'upcoming', groupId])
     },
   })
 }
@@ -35,6 +36,7 @@ export function useUpdateDeadlineMutation(groupId: string) {
     }),
     onSuccess() {
       queryClient.invalidateQueries(['deadline', 'list', groupId])
+      queryClient.invalidateQueries(['event', 'upcoming', groupId])
     },
   })
 }
@@ -65,6 +67,7 @@ export function useDeleteDeadlineMutation(groupId: string) {
     }),
     onSuccess() {
       queryClient.invalidateQueries(['deadline', 'list', groupId])
+      queryClient.invalidateQueries(['event', 'upcoming', groupId])
     },
   })
 }

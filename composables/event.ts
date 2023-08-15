@@ -21,7 +21,7 @@ export function useCreateEventMutation(groupId: string) {
       ...event,
     }),
     onSuccess() {
-      queryClient.invalidateQueries(['event', 'upcoming'])
+      queryClient.invalidateQueries(['event', 'upcoming', groupId])
     },
   })
 }
@@ -36,7 +36,7 @@ export function useUpdateEventMutation(groupId: string) {
       ...event,
     }),
     onSuccess() {
-      queryClient.invalidateQueries(['event', 'upcoming'])
+      queryClient.invalidateQueries(['event', 'upcoming', groupId])
     },
   })
 }
@@ -51,7 +51,7 @@ export function useDeleteEventMutation(groupId: string) {
       ...event,
     }),
     onSuccess() {
-      queryClient.invalidateQueries(['event', 'upcoming'])
+      queryClient.invalidateQueries(['event', 'upcoming', groupId])
     },
   })
 }
