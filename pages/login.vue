@@ -86,7 +86,8 @@ async function verifyOtp() {
                 Login
               </CardTitle>
               <CardDescription>
-                Please enter your academic email address.
+                <span v-if="formData.stage === 'email'">Please enter your academic email address.</span>
+                <span v-else-if="formData.stage === 'otp'">An OTP has been sent to your email. Please check your email and enter the OTP to login.</span>
               </CardDescription>
             </CardHeader>
             <CardContent>
