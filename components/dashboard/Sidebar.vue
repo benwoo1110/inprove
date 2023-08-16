@@ -31,7 +31,7 @@ const sidebarItems = computed(() => {
     {
       title: 'Home',
       icon: 'i-tabler-home',
-      match: ['/dashboard'],
+      match: '',
       to: '/dashboard',
     },
   ]
@@ -40,7 +40,7 @@ const sidebarItems = computed(() => {
     base.push({
       title: 'Admin',
       icon: 'i-tabler-settings',
-      match: ['/dashboard/__admin'],
+      match: '__admin',
       to: '/dashboard/__admin',
     })
   }
@@ -49,7 +49,7 @@ const sidebarItems = computed(() => {
     base.push({
       title: 'Institution settings',
       icon: 'i-tabler-building',
-      match: ['/dashboard/institution/settings'],
+      match: 'institution',
       to: '/dashboard/institution/settings',
     })
   }
@@ -73,6 +73,12 @@ const groupContextMenu = computed(() => {
     },
   ]
 })
+
+function matchPath(path: string, match: string) {
+  const pathSplit = path.split('/')
+  const targetPath = pathSplit.length <= 2 ? '' : pathSplit[2]
+  return targetPath === match
+}
 
 async function logout() {
   // TODO clear query cache
@@ -106,7 +112,7 @@ function openContextMenu(groupId: string, event: any) {
       <NuxtLink
         v-for="{ title, icon, match, to } in sidebarItems"
         :key="title"
-        prefetch :to="to" :class="{ 'bg-$highlight-bg text-$highlight-text-color hover:no-underline': match.includes($route.path) }"
+        prefetch :to="to" :class="{ 'bg-$highlight-bg text-$highlight-text-color hover:no-underline': matchPath($route.path, match) }"
         class="w-full inline-flex cursor-pointer items-center justify-start gap2 rounded-md px-4 py-2 font-normal transition-colors disabled:pointer-events-none hover:bg-$highlight-bg font-medium! hover:text-$highlight-text-color hover:underline disabled:opacity-50 focus-visible:outline-none focus-visible:ring-1"
       >
         <div :class="icon" />
