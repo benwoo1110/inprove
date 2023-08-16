@@ -17,6 +17,8 @@ const props = withDefaults(defineProps<{
   ],
 })
 
+const emit = defineEmits(['click'])
+
 const ContextMenu = defineAsyncComponent(() => import('primevue/contextmenu'))
 
 const menu = ref()
@@ -84,10 +86,12 @@ async function logout() {
   // TODO clear query cache
   await $client.auth.email.logout.mutate()
   await navigateTo('/login')
+  emit('click')
 }
 
 async function settings() {
   await navigateTo('/dashboard/settings')
+  emit('click')
 }
 
 function openContextMenu(groupId: string, event: any) {
@@ -114,6 +118,7 @@ function openContextMenu(groupId: string, event: any) {
         :key="title"
         prefetch :to="to" :class="{ 'bg-$highlight-bg text-$highlight-text-color hover:no-underline': matchPath($route.path, match) }"
         class="w-full inline-flex cursor-pointer items-center justify-start gap2 rounded-md px-4 py-2 font-normal transition-colors disabled:pointer-events-none hover:bg-$highlight-bg font-medium! hover:text-$highlight-text-color hover:underline disabled:opacity-50 focus-visible:outline-none focus-visible:ring-1"
+        @click="emit('click')"
       >
         <div :class="icon" />
         {{ title }}
@@ -129,7 +134,7 @@ function openContextMenu(groupId: string, event: any) {
     </div>
 
     <div class="h-full overflow-y-auto">
-      <ContextMenu ref="menu" :model="groupContextMenu" />
+      <ContextMenu ref="menu" :model="groupContextMenu" @click="emit('click')" />
 
       <Skeleton v-if="groupsIsLoading" height="100%" width="100%" />
       <ScrollPanel v-else style="height: 100%;">
@@ -140,6 +145,7 @@ function openContextMenu(groupId: string, event: any) {
             :class="{ 'bg-$highlight-bg text-$highlight-text-color hover:no-underline': $route.params.groupId === group.id }"
             class="mt2 w-full inline-flex cursor-pointer items-center justify-start gap2 rounded-md px-4 py-2 font-normal transition-colors disabled:pointer-events-none hover:bg-$highlight-bg font-medium! hover:text-$highlight-text-color hover:underline disabled:opacity-50 focus-visible:outline-none focus-visible:ring-1"
             @contextmenu="(event) => openContextMenu(group.id, event)"
+            @click="emit('click')"
           >
             {{ group.name }}
           </NuxtLink>

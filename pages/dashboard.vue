@@ -14,7 +14,7 @@ const { visible } = useSidebar()
     <!-- TODO should reorganize this: always show sidebar -->
 
     <Sidebar v-model:visible="visible" class="md:hidden">
-      <DashboardSidebar />
+      <DashboardSidebar @click="visible = false" />
     </Sidebar>
 
     <div class="min-w-[250px] w-[250px] !hidden md:flex!" border-r="1 solid $surface-border">
