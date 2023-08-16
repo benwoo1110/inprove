@@ -87,7 +87,6 @@ function openInvites(id: string) {
 <template>
   <div>
     <Toast />
-
     <h2 text-lg font-medium>
       Institutions
     </h2>
